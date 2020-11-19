@@ -20,7 +20,7 @@ data$month<-c()
 data$days_to_first_case<-as.numeric(as.Date(data$date,origin='2020-03-03'))-(18281+42)
 cases<-data$cases
 deaths<-data$deaths
-date <- as.Date(data$date, format = "%Y-%m-%d")
+data$date <- as.Date(data$date, format = "%Y-%m-%d")
 for(i in 1:nrow(data)){
     if(i<=29){
         data$month[i]='Mar'
@@ -124,7 +124,11 @@ shinyServer(function(input,output,session) {
     cvTest <- data[-trainIndex, ]
     
     
-    
+    try1<-reactive({
+        x<-select(data,input$x,deaths)
+        fit<-lm(deaths~.,x)
+        fit
+    })
     
     predvar<-reactive({
         a<-input$predvar
@@ -139,7 +143,11 @@ shinyServer(function(input,output,session) {
     })
     
     
-    
+    output$modelPlot<-renderPrint({
+        try1()
+        
+    }
+    )
     
     
     
