@@ -11,4 +11,4 @@ install.packages('plotly')
 
 
 Code to run:  
-shiny::runGitHub('Final','lingling1123',ref='main')
+shiny::runGitHub('Final','lingling1123',ref='main',subdir='li/')
